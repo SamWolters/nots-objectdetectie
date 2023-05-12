@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class AiController : ControllerBase
     {
-        private readonly IPredictor _predictor = YoloV8Predictor.Create("C:\\Users\\Faith_Spooky\\Downloads\\yolov8m.onnx");
+        private readonly IPredictor _predictor = YoloV8Predictor.Create("C:\\Users\\marij\\Downloads\\Yolov8.Net-main\\ConsoleApp1\\yolov8m.onnx");
 
         private Image CropImage(Image source, Rectangle section)
         {
@@ -39,9 +39,14 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost(Name = "GetAiPredict")]
-        public List<PredictionObject> Post([FromBody] string base64Image)
+        public async Task<List<PredictionObject>> Post()
         {
-            byte[] bytes = Convert.FromBase64String(base64Image);
+			string requestBody;
+            using(StreamReader reader = new StreamReader(Request.Body)) {
+                requestBody = await reader.ReadToEndAsync();
+            }
+			
+            byte[] bytes = Convert.FromBase64String(requestBody);
 
             using MemoryStream ms = new(bytes);
             Image image = Image.FromStream(ms);
