@@ -86,24 +86,24 @@ export const Upload = () => {
   };
 
   return (
-    <>
-    <Navbar/>
-    <div className="h-100 container-fluid">
-      <div className="d-flex flex-row gap-2 h-100 row justify-content-center align-items-center">
-        <div className="d-flex flex-column col-3 gap-2 align-items-center">
-          <label htmlFor="formFile" className="display-6 form-label" style={{ minWidth: "fit-content" }}>
-            Upload Image
-          </label>
-          <input className="form-control" type="file" id="formFile" accept=".jpg,.jpeg,.png" />
-          <button className="btn btn-primary" type="button" onClick={handlePredict}>
-            Predict
-          </button>
-        </div>
-        <div className={`${showCanvas ? "d-block" : "d-none"} col-4`}>
-          <canvas ref={canvasRef} className="rounded-2 w-100 shadow-lg" />
+    <div className="d-flex flex-column h-100">
+      <Navbar />
+      <div className="h-100 container-fluid">
+        <div className="d-flex flex-row gap-2 h-100 row justify-content-center align-items-center">
+          <div className="d-flex flex-column col-3 gap-2 align-items-center">
+            <label htmlFor="formFile" className="display-6 form-label" style={{ minWidth: "fit-content" }}>
+              Upload Image
+            </label>
+            <input className="form-control" type="file" id="formFile" accept=".jpg,.jpeg,.png" />
+            <button className="btn btn-primary" type="button" onClick={handlePredict}>
+              Predict
+            </button>
+          </div>
+          <div className={`${showCanvas ? "d-block" : "d-none"} col-4`}>
+            <canvas ref={canvasRef} className="rounded-2 w-100 shadow-lg" />
+          </div>
         </div>
       </div>
     </div>
-    </>
   );
 };

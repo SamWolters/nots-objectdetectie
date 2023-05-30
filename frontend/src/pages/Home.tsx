@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 export const Home = () => {
   return (
-    <>
+    <div className="d-flex flex-column h-100">
       <Navbar />
 
       <div className="h-100 container-fluid d-flex align-items-center justify-content-center text-center text-black">
@@ -12,18 +12,14 @@ export const Home = () => {
             <p>Upload or use your webcam to detect the objects in images.</p>
 
             <Link to="/upload">
-              <button className="btn btn-primary btn-lg rounded-3 mx-5">
-                Upload
-              </button>
+              <button className="btn btn-primary btn-lg rounded-3 mx-5">Upload</button>
             </Link>
             <Link to="/webcam">
-              <button className="btn btn-primary btn-lg rounded-3 mx-5">
-                Webcam
-              </button>
+              <button className="btn btn-primary btn-lg rounded-3 mx-5">Webcam</button>
             </Link>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

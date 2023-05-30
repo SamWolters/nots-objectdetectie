@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { LogoSVG } from "./LogoSVG";
 
@@ -6,7 +5,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
-      <LogoSVG />
+        <LogoSVG />
         <Link className="navbar-brand fs-4" to="/">
           Object Detective
         </Link>
@@ -29,11 +28,7 @@ export const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className="nav-link active btn btn-primary text-white fs-6"
-                aria-current="page"
-                to="/upload"
-              >
+              <Link className="nav-link active btn btn-primary text-white fs-6" aria-current="page" to="/upload">
                 Upload
               </Link>
             </li>
