@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 export const Home = () => {
@@ -6,7 +5,7 @@ export const Home = () => {
     <>
       <Navbar />
 
-      <div className="container d-flex align-items-center justify-content-center text-center text-black">
+      <div className="h-100 container-fluid d-flex align-items-center justify-content-center text-center text-black">
         <div>
           <h1 className="fs-1 mb-5">The place for detecting objects</h1>
           <div className="mt-5">
