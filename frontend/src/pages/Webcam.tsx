@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import { Navbar } from "../components/Navbar";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 interface WebcamCaptureProps {}
 interface WebcamCaptureState {
-  imageData: string | null;
   showCamera: boolean;
 }
 
@@ -32,7 +32,6 @@ export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
     this.mediaStream = null;
 
     this.state = {
-      imageData: null,
       showCamera: true,
     };
   }
@@ -72,6 +71,8 @@ export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
       const imageData = canvas.toDataURL("image/png");
       const base64Value = imageData.split(",")[1];
 
+      this.setState({ showCamera: false });
+
       fetch("https://localhost:44333/Ai", {
         method: "POST",
         body: base64Value,
@@ -96,12 +97,22 @@ export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
     }
   };
 
-  drawBoxesOnCanvas = (ctx: CanvasRenderingContext2D, predictions: Prediction[], aspectX: number, aspectY: number) => {
+  drawBoxesOnCanvas = (
+    ctx: CanvasRenderingContext2D,
+    predictions: Prediction[],
+    aspectX: number,
+    aspectY: number
+  ) => {
     for (const prediction of predictions) {
       ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.strokeStyle = "#00ff00";
-      ctx.rect(prediction.x * aspectX, prediction.y * aspectY, prediction.width * aspectX, prediction.height * aspectY);
+      ctx.rect(
+        prediction.x * aspectX,
+        prediction.y * aspectY,
+        prediction.width * aspectX,
+        prediction.height * aspectY
+      );
       ctx.stroke();
       ctx.fillStyle = "#00ff00";
       ctx.font = "14px Arial";
@@ -114,40 +125,57 @@ export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
   };
 
   handleResetButtonClick = () => {
-    this.setState({ imageData: null, showCamera: true });
+    this.setState({ showCamera: true });
+
+    const canvas = this.canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      ctx?.clearRect(0, 0, canvas.width, canvas.height);
+    }
   };
 
   render() {
     return (
-      <div className="container">
-        <div className="row justify-content-center mb-3">
-          {/* this.state.showCamera && */}
-          <div className="col-6 col-sm-6">
-            <video ref={this.videoRef} autoPlay />
-          </div>
-          {/* !this.state.showCamera && this.state.imageData && */}
-
-          <div className="col-6 col-sm-6">
-            <canvas ref={this.canvasRef} />
-          </div>
-        </div>
-
-        <div className="row justify-content-center">
-          <div className="col-12 col-sm-6">
-            {this.state.showCamera && <button onClick={this.handleCaptureButtonClick}>Capture</button>}
-
-            {!this.state.showCamera && <button onClick={this.handleResetButtonClick}>Reset</button>}
-          </div>
-        </div>
-
-        {/* {this.state.imageData && (
-          <div className="row justify-content-center">
-            <div className="col-12 col-sm-6">
-              <img src={this.state.imageData} alt="Captured Frame" className="img-fluid" />
+      <>
+      <Navbar/>
+        <div className="h-100 container-fluid">
+          <div className="d-flex flex-column gap-2 h-100 row justify-content-center align-items-center">
+            <div className="col-6 col-sm-6">
+              <video
+                ref={this.videoRef}
+                className={`${
+                  this.state.showCamera ? "d-block" : "d-none"
+                } rounded-2 w-100 shadow-lg`}
+                autoPlay
+              />
+              <canvas
+                ref={this.canvasRef}
+                className={`${
+                  this.state.showCamera ? "d-none" : "d-block"
+                } rounded-2 w-100 shadow-lg`}
+              />
+            </div>
+            <div className="col-6 col-sm-6 d-flex flex-column align-items-center">
+              {this.state.showCamera && (
+                <button
+                  className="btn btn-primary"
+                  onClick={this.handleCaptureButtonClick}
+                >
+                  Capture
+                </button>
+              )}
+              {!this.state.showCamera && (
+                <button
+                  className="btn btn-danger"
+                  onClick={this.handleResetButtonClick}
+                >
+                  Reset
+                </button>
+              )}
             </div>
           </div>
-        )} */}
-      </div>
+        </div>
+      </>
     );
   }
 }
