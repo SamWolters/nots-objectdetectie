@@ -1,4 +1,5 @@
 import { createRef, useState } from "react";
+import { Navbar } from "../components/Navbar";
 
 interface Prediction {
   label: string;
@@ -85,6 +86,8 @@ export const Upload = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="h-100 container-fluid">
       <div className="d-flex flex-row gap-2 h-100 row justify-content-center align-items-center">
         <div className="d-flex flex-column col-3 gap-2 align-items-center">
@@ -101,5 +104,6 @@ export const Upload = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
