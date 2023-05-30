@@ -1,8 +1,7 @@
-﻿using Classifiers;
-using Common;
+﻿using Common;
 using Microsoft.AspNetCore.Mvc;
+using ObjectDetectionAPI.Services;
 using System.Drawing;
-using Tensorflow;
 using Yolov8Net;
 
 namespace WebApplication1.Controllers
@@ -11,37 +10,13 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class AiController : ControllerBase
     {
-        private readonly IPredictor _predictor = YoloV8Predictor.Create("C:\\Users\\marij\\Downloads\\Yolov8.Net-main\\ConsoleApp1\\yolov8m.onnx");
-
-        private Image CropImage(Image source, Rectangle section)
-        {
-            var bitmap = new Bitmap(section.Width, section.Height);
-            using (var g = Graphics.FromImage(bitmap))
-            {
-                g.DrawImage(source, 0, 0, section, GraphicsUnit.Pixel);
-                return bitmap;
-            }
-        }
-
-        private KeyValuePair<string, float?> PredictImage(Prediction prediction, Image image)
-        {
-            Rectangle section = new(new Point((int)prediction.Rectangle.X, (int)prediction.Rectangle.Y), new Size((int)prediction.Rectangle.Width, (int)prediction.Rectangle.Height));
-            Image CroppedImage = CropImage(image, section);
-
-            switch (prediction.Label.Name)
-            {
-                case "dog":
-                    return DogsClassifier.Predict(CroppedImage);
-                case "car":
-                    return CarBrandsClassifier.Predict(CroppedImage);
-                default: return new KeyValuePair<string, float?> (null, null);
-            }
-        }
+        private readonly IPredictor _predictor = YoloV8Predictor.Create(Path.Combine(Directory.GetCurrentDirectory(), "yolov8m.onnx"));
+        private ClassifierService classifier = ClassifierService.Instance;
 
         [HttpPost(Name = "GetAiPredict")]
         public async Task<List<PredictionObject>> Post()
         {
-			string requestBody;
+            string requestBody;
             using(StreamReader reader = new StreamReader(Request.Body)) {
                 requestBody = await reader.ReadToEndAsync();
             }
@@ -55,7 +30,7 @@ namespace WebApplication1.Controllers
 
             return prediction.Aggregate(new List<PredictionObject>(), (list, item) =>
             {
-                KeyValuePair<string, float?> output = PredictImage(item, image);
+                KeyValuePair<string, float?> output = classifier.PredictImage(item, image);
 
                 if (output.Value != null)
                 {

@@ -4,6 +4,7 @@ namespace Common
 {
     public interface IClassifier
     {
-        public static abstract KeyValuePair<string, float?> Predict(Image image);
+        public string ClassifiesObject { get; }
+        public KeyValuePair<string, float?> Predict(Image image);
     }
 }
