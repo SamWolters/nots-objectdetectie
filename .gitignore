@@ -19,4 +19,4 @@ web-build/
 # Keep C# build files out of the repo
 bin/
 obj/
-*.vs/*
+*/.vs/*
