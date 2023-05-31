@@ -1,23 +1,11 @@
 import React, { Component } from "react";
+
 import { Navbar } from "../components/Navbar";
+import { WebcamCaptureProps } from "../types/WebcamCaptureProps";
+import { WebcamCaptureState } from "../types/WebcamCaptureState";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
-interface WebcamCaptureProps {}
-interface WebcamCaptureState {
-  showCamera: boolean;
-}
-
-interface Prediction {
-  label: string;
-  confidence: number;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  warning: boolean;
-  warningMessage: string;
-}
+import { drawBoxesOnCanvas } from "../common/drawBoxesOnCanvas";
 
 export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
   private videoRef: React.RefObject<HTMLVideoElement>;
@@ -86,7 +74,7 @@ export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
             // Voor nu is dit altijd 1, maar stel dat je de canvas of video in verschillende resoluties wilt renderen is dit nodig.
             const aspectX = canvas.width / video.videoWidth;
             const aspectY = canvas.height / video.videoHeight;
-            this.drawBoxesOnCanvas(context, data, aspectX, aspectY);
+            drawBoxesOnCanvas(context, data, aspectX, aspectY);
           }
           console.log(data);
           console.log("Image data sent successfully");
@@ -94,23 +82,6 @@ export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
         .catch((error) => {
           console.error(error);
         });
-    }
-  };
-
-  drawBoxesOnCanvas = (ctx: CanvasRenderingContext2D, predictions: Prediction[], aspectX: number, aspectY: number) => {
-    for (const prediction of predictions) {
-      ctx.beginPath();
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "#00ff00";
-      ctx.rect(prediction.x * aspectX, prediction.y * aspectY, prediction.width * aspectX, prediction.height * aspectY);
-      ctx.stroke();
-      ctx.fillStyle = "#00ff00";
-      ctx.font = "14px Arial";
-      ctx.fillText(
-        `${prediction.label} (${Math.round(prediction.confidence * 100)}%)`,
-        prediction.x * aspectX + 5,
-        prediction.y * aspectY - 5
-      );
     }
   };
 

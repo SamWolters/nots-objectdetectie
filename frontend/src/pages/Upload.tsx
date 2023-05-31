@@ -1,16 +1,7 @@
 import { createRef, useState } from "react";
-import { Navbar } from "../components/Navbar";
 
-interface Prediction {
-  label: string;
-  confidence: number;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  warning: boolean;
-  warningMessage: string;
-}
+import { Navbar } from "../components/Navbar";
+import { drawBoxesOnCanvas } from "../common/drawBoxesOnCanvas";
 
 export const Upload = () => {
   const canvasRef = createRef<HTMLCanvasElement>();
@@ -25,7 +16,6 @@ export const Upload = () => {
       reader.onload = () => {
         const base64 = reader.result?.toString();
         const base64WithoutPrefix = base64?.substring(base64.indexOf(",") + 1);
-        console.log(base64WithoutPrefix);
 
         const img = new Image();
         img.src = base64!;
@@ -63,28 +53,6 @@ export const Upload = () => {
     }
   };
 
-  const drawBoxesOnCanvas = (
-    ctx: CanvasRenderingContext2D,
-    predictions: Prediction[],
-    aspectX: number,
-    aspectY: number
-  ) => {
-    for (const prediction of predictions) {
-      ctx.beginPath();
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "#00ff00";
-      ctx.rect(prediction.x * aspectX, prediction.y * aspectY, prediction.width * aspectX, prediction.height * aspectY);
-      ctx.stroke();
-      ctx.fillStyle = "#00ff00";
-      ctx.font = "20px Arial";
-      ctx.fillText(
-        `${prediction.label} (${Math.round(prediction.confidence * 100)}%)`,
-        prediction.x * aspectX + 5,
-        prediction.y * aspectY - 5
-      );
-    }
-  };
-
   return (
     <div className="d-flex flex-column h-100">
       <Navbar />
@@ -94,7 +62,7 @@ export const Upload = () => {
             <label htmlFor="formFile" className="display-6 form-label" style={{ minWidth: "fit-content" }}>
               Upload Image
             </label>
-            <input className="form-control" type="file" id="formFile" accept=".jpg,.jpeg,.png" />
+            <input className="form-control" type="file" id="formFile" accept=".jpg,.jpeg" />
             <button className="btn btn-primary" type="button" onClick={handlePredict}>
               Predict
             </button>
