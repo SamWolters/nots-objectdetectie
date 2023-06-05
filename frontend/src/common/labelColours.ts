@@ -13,7 +13,7 @@ export const LabelColour = {
   "stop sign": "#FF0000", // Red
   "parking meter": "#808080", // Gray
   bench: "#A52A2A", // Brown
-  bird: "#FFFF00", // Yellow
+  bird: "#00FF00", // Green
   cat: "#FFA500", // Orange
   dog: "#FFA500", // Gray
   horse: "#0000FF", // Blue
