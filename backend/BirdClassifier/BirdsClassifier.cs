@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using BirdClassifier;
+using Common;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -8,13 +9,11 @@ namespace Classifiers
     {
         public string ClassifiesObject { get; } = "bird";
 
-        public KeyValuePair<string, float?> Predict(Image image)
-        {
+        public KeyValuePair<string, float?> Predict(Image image) {
             using MemoryStream ms = new();
             image.Save(ms, ImageFormat.Jpeg);
 
-            var input = new ModelInput()
-            {
+            var input = new ModelInput() {
                 ImageSource = ms.ToArray(),
             };
 

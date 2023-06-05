@@ -7,9 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Birds.training.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Birds.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Birds.training.cs" />
+    <EmbeddedResource Include="Birds.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.ML" Version="2.0.1" />
     <PackageReference Include="Microsoft.ML.Vision" Version="2.0.1" />
-    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.11.3" />
+    <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
