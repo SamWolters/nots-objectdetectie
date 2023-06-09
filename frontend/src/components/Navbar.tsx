@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 import { LogoSVG } from "./LogoSVG";
 
 export const Navbar = () => {

@@ -8,7 +8,8 @@ namespace Common
 {
     public class PredictionObject
     {
-        public string Label { get; set; }
+        public string YoloLabel { get; set; }
+        public string CustomLabel { get; set; }
         public float Confidence { get; set; }
         public float X { get; set; }
         public float Y { get; set; }

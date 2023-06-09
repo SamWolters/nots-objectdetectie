@@ -32,22 +32,22 @@ namespace WebApplication1.Controllers
             {
                 KeyValuePair<string, float?> output = classifier.PredictImage(item, image);
 
-                if (output.Value != null)
-                {
-                    string warning = (output.Value * 100) < 50 ? "prediction might be wrong" : "";
+                string warning = ((output.Value ?? item.Score) * 100) < 50 ? "prediction might be wrong" : "";
 
-                    list.Add(new PredictionObject() 
-                    { 
-                        Label = output.Key, 
-                        Confidence = (float)output.Value, 
-                        X = item.Rectangle.X, 
-                        Y = item.Rectangle.Y, 
-                        Width = item.Rectangle.Width, 
-                        Height = item.Rectangle.Height,
-                        Warning = !string.IsNullOrEmpty(warning),
-                        WarningMessage = warning
-                    });
-                }
+                float score = (output.Value ?? item.Score);
+
+                list.Add(new PredictionObject() 
+                { 
+                    YoloLabel = item.Label.Name,
+                    CustomLabel = output.Key, 
+                    Confidence = score, 
+                    X = item.Rectangle.X, 
+                    Y = item.Rectangle.Y, 
+                    Width = item.Rectangle.Width, 
+                    Height = item.Rectangle.Height,
+                    Warning = !string.IsNullOrEmpty(warning),
+                    WarningMessage = warning
+                });
 
                 return list;
             });

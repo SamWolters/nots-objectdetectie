@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classifiers", "Classifiers", "{C7F21916-3BEC-4D0C-8D53-34D0D0F083C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogClassifier", "DogClassifier\DogClassifier.csproj", "{0E6C3B04-07D0-4941-9150-4A801324270A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogClassifier", "DogClassifier\DogClassifier.csproj", "{0E6C3B04-07D0-4941-9150-4A801324270A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarClassifier", "CarClassifier\CarClassifier.csproj", "{E60C0F90-1655-402E-AE6E-AF250543EB9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarClassifier", "CarClassifier\CarClassifier.csproj", "{E60C0F90-1655-402E-AE6E-AF250543EB9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdClassifier", "BirdClassifier\BirdClassifier.csproj", "{6DB559E5-82DB-4A38-B243-376BC8734871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{E60C0F90-1655-402E-AE6E-AF250543EB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E60C0F90-1655-402E-AE6E-AF250543EB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E60C0F90-1655-402E-AE6E-AF250543EB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB559E5-82DB-4A38-B243-376BC8734871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB559E5-82DB-4A38-B243-376BC8734871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB559E5-82DB-4A38-B243-376BC8734871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB559E5-82DB-4A38-B243-376BC8734871}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0E6C3B04-07D0-4941-9150-4A801324270A} = {C7F21916-3BEC-4D0C-8D53-34D0D0F083C8}
 		{E60C0F90-1655-402E-AE6E-AF250543EB9B} = {C7F21916-3BEC-4D0C-8D53-34D0D0F083C8}
+		{6DB559E5-82DB-4A38-B243-376BC8734871} = {C7F21916-3BEC-4D0C-8D53-34D0D0F083C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA9485A1-13B5-4330-8C0A-5490FF1703BF}

@@ -127,7 +127,14 @@ namespace ObjectDetectionAPI.Services
             if(Classifiers.TryGetValue(prediction.Label.Name, out IClassifier classifier)) {
                 Rectangle section = new(new Point((int)prediction.Rectangle.X, (int)prediction.Rectangle.Y), new Size((int)prediction.Rectangle.Width, (int)prediction.Rectangle.Height));
                 Image CroppedImage = CropImage(image, section);
-                return classifier.Predict(CroppedImage);
+                try
+                {
+                    return classifier.Predict(CroppedImage);
+                }
+                catch (Exception)
+                {
+                    return new KeyValuePair<string, float?>(null, null);
+                }
             }
             return new KeyValuePair<string, float?>(null, null);
         }
