@@ -2,6 +2,7 @@ import { createRef, useState } from "react";
 
 import { Navbar } from "../components/Navbar";
 import { drawBoxesOnCanvas } from "../common/drawBoxesOnCanvas";
+import { TEXT_SIZE } from "../constants/textSize";
 
 export const Upload = () => {
   const canvasRef = createRef<HTMLCanvasElement>();
@@ -40,7 +41,8 @@ export const Upload = () => {
                 // Voor nu is dit altijd 1, maar stel dat je de canvas of video in verschillende resoluties wilt renderen is dit nodig.
                 const aspectX = canvas.width / img.width;
                 const aspectY = canvas.height / img.height;
-                drawBoxesOnCanvas(ctx, data, aspectX, aspectY);
+                const textSize = (canvas.width > canvas.height ? canvas.height : canvas.width) / TEXT_SIZE;
+                drawBoxesOnCanvas(ctx, data, aspectX, aspectY, textSize);
               }
               console.log(data);
               console.log("Image data sent successfully");

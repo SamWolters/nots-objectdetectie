@@ -3,9 +3,10 @@ import React, { Component } from "react";
 import { Navbar } from "../components/Navbar";
 import { WebcamCaptureProps } from "../types/WebcamCaptureProps";
 import { WebcamCaptureState } from "../types/WebcamCaptureState";
+import { drawBoxesOnCanvas } from "../common/drawBoxesOnCanvas";
+import { TEXT_SIZE } from "../constants/textSize";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { drawBoxesOnCanvas } from "../common/drawBoxesOnCanvas";
 
 export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
   private videoRef: React.RefObject<HTMLVideoElement>;
@@ -74,7 +75,8 @@ export class Webcam extends Component<WebcamCaptureProps, WebcamCaptureState> {
             // Voor nu is dit altijd 1, maar stel dat je de canvas of video in verschillende resoluties wilt renderen is dit nodig.
             const aspectX = canvas.width / video.videoWidth;
             const aspectY = canvas.height / video.videoHeight;
-            drawBoxesOnCanvas(context, data, aspectX, aspectY);
+            const textSize = canvas.width / TEXT_SIZE;
+            drawBoxesOnCanvas(context, data, aspectX, aspectY, textSize);
           }
           console.log(data);
           console.log("Image data sent successfully");

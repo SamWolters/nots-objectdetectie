@@ -5,7 +5,8 @@ export const drawBoxesOnCanvas = (
   ctx: CanvasRenderingContext2D,
   predictions: Prediction[],
   aspectX: number,
-  aspectY: number
+  aspectY: number,
+  textSize: number
 ) => {
   for (const prediction of predictions) {
     const color = LabelColour[prediction.yoloLabel as keyof typeof LabelColour];
@@ -16,7 +17,7 @@ export const drawBoxesOnCanvas = (
     ctx.rect(prediction.x * aspectX, prediction.y * aspectY, prediction.width * aspectX, prediction.height * aspectY);
     ctx.stroke();
     ctx.fillStyle = color;
-    ctx.font = "14px Arial";
+    ctx.font = `${textSize}px Arial`;
     ctx.fillText(
       `${prediction.customLabel ?? prediction.yoloLabel} (${Math.round(prediction.confidence * 100)}%)`,
       prediction.x * aspectX + 5,
